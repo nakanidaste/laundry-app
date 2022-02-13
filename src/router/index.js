@@ -23,7 +23,7 @@ const MainApps = () => {
 const Router = () => {
 
     const { user, setUser } = useContext(AuthContext);
-    const {initializing, setInitializing} = useState(true);
+    const { initializing, setInitializing } = useState(true);
 
     const onAuthStateChanged = (user) => {
         setUser(user); 
@@ -31,9 +31,16 @@ const Router = () => {
     }
 
     useEffect(() => {
+        let cek = true;
+        if(cek) {
         const subsciber = auth().onAuthStateChanged(onAuthStateChanged);
-        return subsciber;
-    }, []);
+        return subsciber }
+
+        return () => {
+            cek = false
+            console.log(cek)
+        }
+    }, [user]);
 
     if(initializing) return null;
 
@@ -42,6 +49,7 @@ const Router = () => {
     <Stack.Navigator initialRouteName='Splash'>
         { user ? <Stack.Screen name="MainApps" component={MainApps} options={{ headerShown: false }}/> : <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>}
         <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }}/>
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }}/>
         <Stack.Screen name="Satuan" component={Satuan} />
         <Stack.Screen name="Kiloan" component={Kiloan} />
         <Stack.Screen name="VIP" component={vip} />
