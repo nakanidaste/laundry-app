@@ -75,7 +75,7 @@ const Home = () => {
 
         return () => {
             cek = false
-            console.log(cek)
+            console.log(cek, user.uid)
         }
     }, [])
 
